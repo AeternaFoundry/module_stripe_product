@@ -111,5 +111,13 @@ EOT
       width  = number
     })))
   }))
+  validation {
+    condition = alltrue([
+      for k, v in var.products : (
+        v.type == null || (contains(["good", "service"], v.type))
+      )
+    ])
+    error_message = "must be one of: \"good\", \"service\""
+  }
 }
 
